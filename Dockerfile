@@ -14,9 +14,8 @@ RUN cargo build --release --bin electrs
 FROM debian:stable-slim
 
 
-USER user
-WORKDIR /home/user
-COPY --from=builder /electrs/target/release/electrs /home/user
+WORKDIR /app
+COPY --from=builder /electrs/target/release/electrs /app/electrs
 
 # Electrum RPC
 EXPOSE 50001
@@ -25,4 +24,4 @@ EXPOSE 4224
 
 STOPSIGNAL SIGINT
 
-ENTRYPOINT ["/home/user/electrs"]
+ENTRYPOINT ["/app/electrs"]
